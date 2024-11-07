@@ -15,6 +15,8 @@ let sprite = game.createSprite(2, 2)
 catcher = game.createSprite(4, 4)
 basic.forever(function () {
     sprite.move(1)
+    basic.pause(25)
     sprite.turn(Direction.Right, 45)
+    basic.pause(100)
     sprite.ifOnEdgeBounce()
 })
