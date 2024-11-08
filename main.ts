@@ -9,13 +9,13 @@ input.onButtonPressed(Button.A, function () {
     catcher.move(-1)
 })
 input.onButtonPressed(Button.AB, function () {
-    catcher.change(LedSpriteProperty.Y, -1)
+    catcher.change(LedSpriteProperty.Y, 1)
 })
 input.onButtonPressed(Button.B, function () {
     catcher.move(1)
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    catcher.change(LedSpriteProperty.Y, 1)
+    catcher.change(LedSpriteProperty.Y, -1)
 })
 let catcher: game.LedSprite = null
 let sprite2 = game.createSprite(2, 2)
