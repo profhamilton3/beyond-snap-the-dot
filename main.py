@@ -1,16 +1,16 @@
 def isHit(sprite: game.LedSprite, chase: game.LedSprite):
-    return False 
+    if sprite.is_touching(chase):
+        music.play(music.tone_playable(988, music.beat(BeatFraction.QUARTER)),
+            music.PlaybackMode.UNTIL_DONE)
+        return True
+    return False
 
 def on_button_pressed_a():
     catcher.move(-1)
-    if True:
-        pass
-    else:
-        pass
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_ab():
-    catcher.change(LedSpriteProperty.Y, -1)
+    catcher.change(LedSpriteProperty.Y, 1)
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 def on_button_pressed_b():
@@ -18,7 +18,7 @@ def on_button_pressed_b():
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_logo_pressed():
-    catcher.change(LedSpriteProperty.Y, 1)
+    catcher.change(LedSpriteProperty.Y, -1)
 input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
 
 catcher: game.LedSprite = None
@@ -35,4 +35,5 @@ def on_forever():
     basic.pause(100)
     sprite2.if_on_edge_bounce()
     randomangle = randint(30, 320)
+    isHit(sprite2, catcher)
 basic.forever(on_forever)
