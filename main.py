@@ -22,7 +22,7 @@ joystickbit.on_button_event(joystickbit.JoystickBitPin.P15,
     my_function2)
 
 def on_button_pressed_ab():
-    catcher.change(LedSpriteProperty.Y, -1)
+    catcher.change(LedSpriteProperty.Y, 1)
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 def on_button_pressed_b():
@@ -42,7 +42,7 @@ joystickbit.on_button_event(joystickbit.JoystickBitPin.P12,
     my_function4)
 
 def on_logo_pressed():
-    catcher.change(LedSpriteProperty.Y, 1)
+    catcher.change(LedSpriteProperty.Y, -1)
 input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
 
 catcher: game.LedSprite = None
@@ -64,18 +64,16 @@ basic.forever(on_forever)
 
 def on_in_background():
     while True:
-            if joystickbit.get_rocker_value(joystickbit.rockerType.X) <= 200:
-                music.play_tone(262, music.beat(BeatFraction.HALF))
-            if joystickbit.get_rocker_value(joystickbit.rockerType.X) >= 800:
-                music.play_tone(294, music.beat(BeatFraction.HALF))
-            if joystickbit.get_button(joystickbit.JoystickBitPin.P12):
-                music.play_tone(330, music.beat(BeatFraction.HALF))
-            if joystickbit.get_button(joystickbit.JoystickBitPin.P13):
-                music.play_tone(349, music.beat(BeatFraction.HALF))
-            if joystickbit.get_button(joystickbit.JoystickBitPin.P14):
-                music.play_tone(392, music.beat(BeatFraction.HALF))
-            if joystickbit.get_button(joystickbit.JoystickBitPin.P15):
-                music.play_tone(440, music.beat(BeatFraction.HALF))
-            if joystickbit.get_rocker_value(joystickbit.rockerType.Y) >= 800:
-                music.play_tone(494, music.beat(BeatFraction.HALF))
+        if joystickbit.get_rocker_value(joystickbit.rockerType.X) < 200:
+            catcher.move(1)
+            music.play_tone(262, music.beat(BeatFraction.HALF))
+        if joystickbit.get_rocker_value(joystickbit.rockerType.X) >= 800:
+            catcher.move(-1)
+            music.play_tone(294, music.beat(BeatFraction.HALF))
+        if joystickbit.get_rocker_value(joystickbit.rockerType.Y) >= 800:
+            catcher.change(LedSpriteProperty.Y, -1)
+            music.play_tone(494, music.beat(BeatFraction.HALF))
+        if joystickbit.get_rocker_value(joystickbit.rockerType.Y) <= 200:
+            catcher.change(LedSpriteProperty.Y, 1)
+            music.play_tone(440, music.beat(BeatFraction.HALF))
 control.in_background(on_in_background)
